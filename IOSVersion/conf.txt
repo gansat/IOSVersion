@@ -1,0 +1,247 @@
+version 12.4
+service timestamps debug datetime localtime
+service timestamps log datetime localtime
+service password-encryption
+!
+hostname C1801-1.PTL.GVL
+!
+boot-start-marker
+boot-end-marker
+!
+logging message-counter syslog
+logging buffered 32768 informational
+!
+aaa new-model
+!
+!
+aaa authentication attempts login 5
+aaa authentication login default group tacacs+ local
+aaa authentication login backup local
+aaa authentication ppp default group tacacs+ local
+aaa authorization config-commands
+aaa authorization exec default group tacacs+ local 
+aaa authorization commands 15 default group tacacs+ local 
+aaa authorization network default group tacacs+ local 
+aaa accounting exec default
+action-type start-stop
+group tacacs+
+!
+aaa accounting commands 15 default
+action-type start-stop
+group tacacs+
+!
+aaa accounting network default
+action-type start-stop
+group tacacs+
+!
+aaa accounting system default
+action-type start-stop
+group tacacs+
+!
+!
+!
+aaa session-id common
+memory-size iomem 25
+clock timezone MSK 3
+!
+!
+dot11 syslog
+ip source-route
+ip icmp rate-limit unreachable 2000
+!
+!
+!
+!
+ip cef
+ip domain name m.spd.serw.rzd
+no ipv6 cef
+ntp max-associations 2
+!
+multilink bundle-name authenticated
+!
+!
+!
+vtp mode transparent
+username Director privilege 15 password 7 ocsicc
+! 
+!
+!
+archive
+log config
+  hidekeys
+!
+!
+vlan 2
+name userlan
+!
+vlan 999
+name techlan
+!
+!
+!
+!
+interface Loopback0
+ip address 10.61.254.98 255.255.255.255
+!
+interface ATM0
+no ip address
+no atm ilmi-keepalive
+!
+interface ATM0.1 point-to-point
+mtu 1500
+ip address 10.62.202.36 255.255.255.248
+ip ospf network broadcast
+atm route-bridged ip
+pvc 0 0/33 
+  encapsulation aal5snap
+!
+!
+interface BRI0
+no ip address
+encapsulation hdlc
+shutdown
+!
+interface FastEthernet0
+no ip address
+shutdown
+duplex auto
+speed auto
+!
+interface FastEthernet1
+switchport access vlan 2
+!
+interface FastEthernet2
+description Catalyst WS-C2960-24 (10.61.232.179)
+switchport mode trunk
+duplex full
+speed 100
+!
+interface FastEthernet3
+description APC-750 (10.61.232.178)
+switchport access vlan 999
+!
+interface FastEthernet4
+switchport access vlan 2
+!
+interface FastEthernet5
+switchport access vlan 2
+!
+interface FastEthernet6
+switchport access vlan 2
+!
+interface FastEthernet7
+switchport access vlan 2
+!
+interface FastEthernet8
+switchport access vlan 2
+duplex full
+!
+interface Vlan1
+no ip address
+shutdown
+!
+interface Vlan2
+description LAN PTOL_Tsekh Obuchenija
+ip address 10.61.68.65 255.255.255.224
+!
+interface Vlan999
+description TechLAN
+ip address 10.61.232.177 255.255.255.248
+!
+router ospf 58000
+router-id 10.61.254.98
+log-adjacency-changes
+area 500 authentication message-digest
+network 10.61.68.64 0.0.0.31 area 500
+network 10.61.232.176 0.0.0.7 area 500
+network 10.61.254.98 0.0.0.0 area 500
+network 10.62.202.32 0.0.0.7 area 500
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+ip tacacs source-interface Loopback0
+!
+logging 10.58.4.36
+access-list 1 permit 10.58.1.22
+access-list 1 permit 10.58.1.2
+access-list 1 permit 10.58.0.70
+access-list 1 permit 10.58.0.184
+access-list 1 permit 10.58.0.185
+access-list 1 permit 10.58.1.133
+access-list 1 permit 10.58.0.241
+access-list 1 permit 10.58.0.242
+access-list 1 permit 10.58.0.250
+access-list 1 permit 10.58.4.0 0.0.0.31
+access-list 2 permit 10.58.0.70
+access-list 2 permit 10.58.1.133 log
+access-list 2 permit 10.58.0.241
+access-list 2 permit 10.58.0.250 log
+access-list 2 permit 10.58.4.0 0.0.0.31
+access-list 3 permit 0.0.0.0
+access-list 11 permit 10.246.109.4
+dialer-list 1 protocol ip permit
+priority-list 1 protocol ip high tcp 8885
+priority-list 2 protocol ip high list 120
+priority-list 2 protocol ip medium udp snmp
+priority-list 2 protocol ip medium tcp telnet
+priority-list 2 protocol ip low tcp ftp
+priority-list 2 protocol ip high tcp 8885
+!
+!
+!
+!
+!
+snmp-server community serw-ro RO 1
+snmp-server community serw-rw RW 2
+snmp-server community serw-trap view v1default RO
+snmp-server community public RO 11
+snmp-server trap-source Loopback0
+snmp-server location Russia SouthEast Railway, PTOL Grjazi Volg.
+snmp-server contact Alexandr Staroskolskiy (ph.(0500)2392, e-mail:sagittarius@serw.rzd)
+snmp-server system-shutdown
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps tty
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps config
+snmp-server enable traps ospf state-change
+snmp-server host 10.248.32.172 serw-trap 
+snmp-server host 10.58.0.250 serw-trap 
+snmp-server host 10.58.0.70 serw-trap 
+snmp-server host 10.58.1.133 serw-trap 
+tacacs-server host 10.58.0.90
+tacacs-server host 10.58.1.90
+tacacs-server directed-request
+tacacs-server key 7 ghbdtn[frrthfv!!!
+!
+control-plane
+!
+banner motd ^C
+_______________________
+$                       $
+$  M-I-C-H-U-R-I-N-S-K  $
+$                       $
+$   SouthEast Railway   $
+$         NOD-5         $
+$ OU PTOL TCH GRZ-VOLG  $
+$   Router Cisco 1803   $
+$                       $
+$  M-I-C-H-U-R-I-N-S-K  $
+$_______________________$ 
+^C
+!
+line con 0
+login authentication backup
+line aux 0
+line vty 0 4
+!
+ntp authentication-key 1 md5 serw-ntp
+ntp authenticate
+ntp trusted-key 1
+ntp source Loopback0
+ntp update-calendar
+ntp server 10.58.255.1 key 1
+ntp server 10.58.255.2 key 1
+end

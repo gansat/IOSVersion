@@ -1,0 +1,94 @@
+<item>
+                    <name>Vl955.ifInOctets</name>
+                    <type>4</type>
+                    <snmp_community>zbx</snmp_community>
+                    <multiplier>1</multiplier>
+                    <snmp_oid>ifInOctets.212</snmp_oid>
+                    <key>ifInOctets.212</key>
+                    <delay>60</delay>
+                    <history>40</history>
+                    <trends>45</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units>bps</units>
+                    <delta>1</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>8</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <description>Vlan 955&#13;
+NPL Talovaya&#13;
+15K004072&#13;
+10Mb/s</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Vlan load</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <interface_ref>if1</interface_ref>
+                </item>
+                <item>
+                    <name>Vl955.ifOutOctets</name>
+                    <type>4</type>
+                    <snmp_community>zbx</snmp_community>
+                    <multiplier>1</multiplier>
+                    <snmp_oid>ifOutOctets.212</snmp_oid>
+                    <key>ifOutOctets.212</key>
+                    <delay>60</delay>
+                    <history>40</history>
+                    <trends>45</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units>bps</units>
+                    <delta>1</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>8</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <description>Vlan 955&#13;
+NPL Talovaya&#13;
+15K004072&#13;
+10Mb/s</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Vlan load</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <interface_ref>if1</interface_ref>
+                </item>
